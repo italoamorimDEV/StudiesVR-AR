@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Document</title>
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-event-set-component@5/dist/aframe-event-set-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-layout-component@5.3.0/dist/aframe-layout-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-template-component@3.2.1/dist/aframe-template-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-proxy-event-component@2.1.0/dist/aframe-proxy-event-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-environment-component@1.1.0/dist/aframe-environment-component.min.js"></script>
+    <script src="https://unpkg.com/super-hands@3.0.0/dist/super-hands.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.0/dist/aframe-extras.min.js"></script>
+
+    <script id="link" type="text/html">
+      <a-entity class="link"
+        geometry="primitive: plane; height: 1; width: 1"
+        material="shader: flat; src: ${thumb}"
+        event-set__mouseenter="scale: 1.2 1.2 1"
+        event-set__mouseleave="scale: 1 1 1"
+        event-set__click="_target: #image-360; _delay: 300; material.src: ${src}"
+        proxy-event="event: click; to: #image-360; as: fade"
+        sound="on: click; src: #click-sound"></a-entity>
+    </script>
+  </head>
+  <body>
+    <a-scene>
+      <a-assets>
+        <img id="ftOne" src="Photos/FOTO_9205.jpg">
+        <img id="ftTwo" src="Photos/FOTO_9210.jpg">
+        <img id="ftThree" src="Photos/FOTO_9215.jpg">
+        
+        <img id="ftOneBtn" src="Photos/FOTO_9205.jpg">
+        <img id="ftTwoBtn" src="Photos/FOTO_9210.jpg">
+        <img id="ftThreeBtn" src="Photos/FOTO_9215.jpg">
+      </a-assets>
+      
+      <a-box position="0 0 -3" color="green" draggable></a-box>
+      
+      <a-entity environment="preset: default; groundColor: #445; grid: 2x2; gridColor: red" position="0 -4 0"></a-entity>
+      
+      <a-entity laser-controls="hand: right" intersection-spawn="event: click; mixin: voxel"></a-entity>
+      <a-entity oculus-go-controls x-button-listener></a-entity>
+
+      <a-sky id="image-360" radius="10" src="#ftOne"
+             animation__fade="property: components.material.material.color; type: color; from: #FFF; to: #000; dur: 300; startEvents: fade"
+             animation__fadeback="property: components.material.material.color; type: color; from: #000; to: #FFF; dur: 300; startEvents: animationcomplete__fade"> 
+      </a-sky>
+
+      <a-entity camera look-controls look-controls cursor="rayOrigin: mouse">
+          <a-entity id="links" layout="type: line; margin: 1.5" position="-1 -3 -5">
+            <a-entity template="src: #link" data-src="#ftThree" data-thumb="#ftThreeBtn"></a-entity>
+            <a-entity template="src: #link" data-src="#ftTwo" data-thumb="#ftTwoBtn"></a-entity>
+            <a-entity template="src: #link" data-src="#ftOne" data-thumb="#ftOneBtn"></a-entity> 
+          </a-entity>
+      </a-entity>
+    </a-scene>
+  </body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+        <meta charset="UTF-8">
+        <title>DIV</title>
+        <style>
+            #divMain{
+                display: flex;
+                border: 1px solid #000;
+                padding: 2px;
+                border-radius: 100px;
+                width: 208px; height: 620px;
+                position: absolute;
+            }
+            .divs{
+                background-color: #EEE;
+                border-radius: 100px;
+                width: 200px; height: 200px;
+                margin: 4px;
+            }
+            .imgs{
+                border: 1px solid #000;
+                width: 200px; height: 200px;
+                border-radius: 100px;
+            }
+        </style>
+    </head>
+    
+    <script id="link" type="text/html">
+      <a-entity class="link"
+        geometry="primitive: plane; height: 1; width: 1"
+        material="shader: flat; src: ${thumb}"
+        event-set__mouseenter="scale: 1.2 1.2 1"
+        event-set__mouseleave="scale: 1 1 1"
+        event-set__click="_target: #image-360; _delay: 300; material.src: ${src}"
+        proxy-event="event: click; to: #image-360; as: fade"
+        sound="on: click; src: #click-sound"></a-entity>
+    </script>
+    
+    <body>
+        <a-scene>
+            <a-assets>
+                <img id="firstImg" src="Photos/FOTO_9205.jpg">
+                <img id="firstBtn" src="Photos/FOTO_9221.jpg">
+            </a-assets>
+              
+            <a-sky src="#firstImg" animation__fade="property: components.material.material.color; type: color; from: #FFF; to: #000; dur: 300; startEvents: fade"
+                animation__fadeback="property: components.material.material.color; type: color; from: #000; to: #FFF; dur: 300; startEvents: animationcomplete__fade">
+            </a-sky>
+        </a-scene>
+        
+        <div id="divMain">
+            <a-entity id="links" layout="type: line; margin: 1.5" position="0 -1 -4">
+                <div class="divs" template="src: #link" data-src="#firstBtn" data-thumb="#firstBtn">
+                    <img class="imgs" src="Photos/FOTO_9205.jpg">
+                </div>
+                <div class="divs">
+                    <img class="imgs" src="Photos/FOTO_9210.jpg">
+                </div>
+                <div class="divs">
+                    <img class="imgs" src="Photos/FOTO_9215.jpg">
+                </div>
+            </a-entity>
+        </div>
+        
+    </body>
+</html>
