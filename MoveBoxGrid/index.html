@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-environment-component@1.1.0/dist/aframe-environment-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-event-set-component@5.0.0/dist/aframe-event-set-component.min.js"></script>
+    <meta charset="utf-8">
+    <title>Document</title>
+  </head>
+  <body>
+    <a-scene cursor="rayOrigin: mouse">
+      <a-box id="aBox" position="0 -1.5 -5" color="#EF2D5E"
+        event-set__enter="_event: mouseenter; _target: #links; visible: true"
+        event-set__leave="_event: mouseleave; _target: #links; visible: false">
+        <a-entity id="links" layout="type: circle; margin: 1.5" position="0 0 1" rotation="-45 0 0" visible="false">
+        <a-box id="leftBtn" position="-0.5 0 0" scale="0.5 0.5 0.05" color="#4CC3D9"
+          event-set__enter="_event: mouseenter; color: #8FF7FF"
+          event-set__leave="_event: mouseleave; color: #4CC3D9">
+          <a-text position="0 0 0.5" value="left" align="center" color="#FFF"></a-text>
+        </a-box>
+
+        <a-box id="rightBtn" position="0.5 0 0" scale="0.5 0.5 0.05" color="#4CC3D9"
+          event-set__enter="_event: mouseenter; color: #8FF7FF"
+          event-set__leave="_event: mouseleave; color: #4CC3D9">
+          <a-text position="0 0 0.5" value="right" align="center" color="#FFF"></a-text>
+        </a-box>
+
+        <a-box id="frontBtn" position="0 0.5 0" scale="0.5 0.5 0.05" color="#4CC3D9"
+          event-set__enter="_event: mouseenter; color: #8FF7FF"
+          event-set__leave="_event: mouseleave; color: #4CC3D9">
+          <a-text position="0 0 0.5" value="front" align="center" color="#FFF"></a-text>
+        </a-box>
+
+        <a-box id="backBtn" position="0 -0.5 0" scale="0.5 0.5 0.05" color="#4CC3D9"
+          event-set__enter="_event: mouseenter; color: #8FF7FF"
+          event-set__leave="_event: mouseleave; color: #4CC3D9">
+          <a-text position="0 0 0.5" value="back" align="center" color="#FFF"></a-text>
+        </a-box>
+      </a-entity>
+      </a-box>
+      
+      <a-camera></a-camera>
+      
+      <a-sky src="FOTO_9205.jpg"></a-sky>
+      
+      <a-plane position="0 -20 -50" scale="100 100 1" rotation="-90 0 0" opacity="0.5" color="#424242"></a-plane>
+
+      <!--a-entity environment="preset: default; groundColor: #445; grid: 1x1; gridColor: red" position="0.5 0 0.5"></a-entity-->
+
+    </a-scene>
+    <script>
+      function MoveLeft(){
+        document.querySelector('#leftBtn').addEventListener('click', function(){
+          var box=document.getElementById('aBox');
+          var position = box.getAttribute('position');
+          position.x -= 1;
+          box.setAttribute('position', position);
+        });
+      }
+      MoveLeft();
+
+      function MoveRight(){
+        document.querySelector('#rightBtn').addEventListener('click', function(){
+          var box=document.getElementById('aBox');
+          var position = box.getAttribute('position');
+          position.x += 1;
+          box.setAttribute('position', position);
+        });
+      }
+      MoveRight();
+
+      function MoveBack(){
+        document.querySelector('#backBtn').addEventListener('click', function(){
+          var box=document.getElementById('aBox');
+          var position = box.getAttribute('position');
+          position.z -= 1;
+          box.setAttribute('position', position);
+        });
+      }
+      MoveBack();
+
+      function MoveFront(){
+        document.querySelector('#frontBtn').addEventListener('click', function(){
+          var box=document.getElementById('aBox');
+          var position = box.getAttribute('position');
+          position.z += 1;
+          box.setAttribute('position', position);
+        });
+      }
+      MoveFront();
+    </script>
+  </body>
+</html>
