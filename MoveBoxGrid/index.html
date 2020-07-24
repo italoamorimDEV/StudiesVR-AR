@@ -13,6 +13,18 @@
         event-set__enter="_event: mouseenter; _target: #links; visible: true"
         event-set__leave="_event: mouseleave; _target: #links; visible: false">
         <a-entity id="links" layout="type: circle; margin: 1.5" position="0 0 1" rotation="-45 0 0" visible="false">
+        <a-box id="upBtn" position="-0.6 0.6 0" scale="0.5 0.5 0.05" color="#4CC3D9"
+          event-set__enter="_event: mouseenter; color: #8FF7FF"
+          event-set__leave="_event: mouseleave; color: #4CC3D9">
+          <a-text position="0 0 0.5" value="up" align="center" color="#FFF"></a-text>
+        </a-box>
+        
+        <a-box id="downBtn" position="0.6 -0.6 0" scale="0.5 0.5 0.05" color="#4CC3D9"
+          event-set__enter="_event: mouseenter; color: #8FF7FF"
+          event-set__leave="_event: mouseleave; color: #4CC3D9">
+          <a-text position="0 0 0.5" value="down" align="center" color="#FFF"></a-text>
+        </a-box>
+        
         <a-box id="leftBtn" position="-0.5 0 0" scale="0.5 0.5 0.05" color="#4CC3D9"
           event-set__enter="_event: mouseenter; color: #8FF7FF"
           event-set__leave="_event: mouseleave; color: #4CC3D9">
@@ -39,16 +51,75 @@
       </a-entity>
       </a-box>
       
-      <a-camera></a-camera>
+      <a-entity camera look-controls>
+          <a-entity id="links" layout="type: circle; margin: 1.5" position="-1.15 -0.2 -1">
+        <a-box id="leftBtnP" position="-0.5 -0.4 0" scale="0.1 0.1 0.01" color="#4CC3D9"
+          event-set__enter="_event: mouseenter; color: #8FF7FF"
+          event-set__leave="_event: mouseleave; color: #4CC3D9">
+          <a-text position="0 0 0.5" value="left" align="center" color="#FFF"></a-text>
+        </a-box>
+
+        <a-box id="rightBtnP" position="-0.2 -0.4 0" scale="0.1 0.1 0.01" color="#4CC3D9"
+          event-set__enter="_event: mouseenter; color: #8FF7FF"
+          event-set__leave="_event: mouseleave; color: #4CC3D9">
+          <a-text position="0 0 0.5" value="right" align="center" color="#FFF"></a-text>
+        </a-box>
+
+        <a-box id="frontBtnP" position="-0.35 -0.25 0" scale="0.1 0.1 0.01" color="#4CC3D9"
+          event-set__enter="_event: mouseenter; color: #8FF7FF"
+          event-set__leave="_event: mouseleave; color: #4CC3D9">
+          <a-text position="0 0 0.5" value="front" align="center" color="#FFF"></a-text>
+        </a-box>
+
+        <a-box id="backBtnP" position="-0.35 -0.55 0" scale="0.1 0.1 0.01" color="#4CC3D9"
+          event-set__enter="_event: mouseenter; color: #8FF7FF"
+          event-set__leave="_event: mouseleave; color: #4CC3D9">
+          <a-text position="0 0 0.5" value="back" align="center" color="#FFF"></a-text>
+        </a-box>
+        
+        <a-box id="upBtnP" position="-0.2 -0.1 0" scale="0.1 0.1 0.01" color="#4CC3D9"
+          event-set__enter="_event: mouseenter; color: #8FF7FF"
+          event-set__leave="_event: mouseleave; color: #4CC3D9">
+          <a-text position="0 0 0.5" value="up" align="center" color="#FFF"></a-text>
+        </a-box>
+        
+        <a-box id="downBtnP" position="-0.04 -0.25 0" scale="0.1 0.1 0.01" color="#4CC3D9"
+          event-set__enter="_event: mouseenter; color: #8FF7FF"
+          event-set__leave="_event: mouseleave; color: #4CC3D9">
+          <a-text position="0 0 0.5" value="down" align="center" color="#FFF"></a-text>
+        </a-box>
+      </a-entity>
+      </a-entity>
       
       <a-sky src="FOTO_9205.jpg"></a-sky>
       
-      <a-plane position="0 -20 -50" scale="100 100 1" rotation="-90 0 0" opacity="0.5" color="#424242"></a-plane>
+      <a-plane id="aplane" position="0 -20 -50" scale="100 100 1" rotation="-90 0 0" opacity="0.5" color="#424242"></a-plane>
 
       <!--a-entity environment="preset: default; groundColor: #445; grid: 1x1; gridColor: red" position="0.5 0 0.5"></a-entity-->
 
     </a-scene>
     <script>
+        //MOVE BOX
+        function MoveUp(){
+        document.querySelector('#upBtn').addEventListener('click', function(){
+          var box=document.getElementById('abox');
+          var position = box.getAttribute('position');
+          position.y += 1;
+          box.setAttribute('position', position);
+        });
+      }
+      MoveUp();
+        
+        function MoveDown(){
+        document.querySelector('#downBtn').addEventListener('click', function(){
+          var box=document.getElementById('abox');
+          var position = box.getAttribute('position');
+          position.y -= 1;
+          box.setAttribute('position', position);
+        });
+      }
+      MoveDown();
+        
       function MoveLeft(){
         document.querySelector('#leftBtn').addEventListener('click', function(){
           var box=document.getElementById('aBox');
@@ -88,6 +159,67 @@
         });
       }
       MoveFront();
+        
+        //MOVE PLANE
+        function MoveUpP(){
+        document.querySelector('#upBtnP').addEventListener('click', function(){
+          var box=document.getElementById('aplane');
+          var position = box.getAttribute('position');
+          position.y += 1;
+          box.setAttribute('position', position);
+        });
+      }
+      MoveUpP();
+        
+        function MoveDownP(){
+        document.querySelector('#downBtnP').addEventListener('click', function(){
+          var box=document.getElementById('aplane');
+          var position = box.getAttribute('position');
+          position.y -= 1;
+          box.setAttribute('position', position);
+        });
+      }
+      MoveDownP();
+        
+        function MoveLeftP(){
+        document.querySelector('#leftBtnP').addEventListener('click', function(){
+          var box=document.getElementById('aplane');
+          var position = box.getAttribute('position');
+          position.x -= 1;
+          box.setAttribute('position', position);
+        });
+      }
+      MoveLeftP();
+
+      function MoveRightP(){
+        document.querySelector('#rightBtnP').addEventListener('click', function(){
+          var box=document.getElementById('aplane');
+          var position = box.getAttribute('position');
+          position.x += 1;
+          box.setAttribute('position', position);
+        });
+      }
+      MoveRightP();
+
+      function MoveBackP(){
+        document.querySelector('#backBtnP').addEventListener('click', function(){
+          var box=document.getElementById('aplane');
+          var position = box.getAttribute('position');
+          position.z -= 1;
+          box.setAttribute('position', position);
+        });
+      }
+      MoveBackP();
+
+      function MoveFrontP(){
+        document.querySelector('#frontBtnP').addEventListener('click', function(){
+          var box=document.getElementById('aplane');
+          var position = box.getAttribute('position');
+          position.z += 1;
+          box.setAttribute('position', position);
+        });
+      }
+      MoveFrontP();
     </script>
   </body>
 </html>
